@@ -17,6 +17,15 @@ function PlayScreen({navigation}) {
   const [skipped, setSkipped] = useState(0);
   const [text, setText] = useState(null);
 
+  useEffect(() => {
+    if (countries.length === 0) {
+      console.log(((score / (261 - countries.length)) * 100).toFixed(0));
+      navigation.navigate('Results', {
+        score: ((score / (261 - countries.length)) * 100).toFixed(0),
+      });
+    }
+  });
+
   function newCountry() {
     setText('');
     countries.splice(countries.indexOf(country), 1);
@@ -45,7 +54,9 @@ function PlayScreen({navigation}) {
         <Text style={fonts.title}>
           {((score / (261 - countries.length)) * 100).toFixed(0)}%
         </Text>
-      ) : null}
+      ) : (
+        <Text style={fonts.title}>0%</Text>
+      )}
       <Text style={fonts.heading}>{261 - countries.length} / 261</Text>
       <Text style={styles.flag}>{country.emoji}</Text>
       <View style={fonts.buttonBorder}>
