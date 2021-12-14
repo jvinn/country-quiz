@@ -1,52 +1,61 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import {
+  Image,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Animated,
+} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import fonts from '../styles/Fonts';
 
 function HomeScreen({navigation}) {
+  const animated = new Animated.Value(300);
+  const duration = 20000;
+
+  useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(animated, {
+          toValue: -300,
+          duration: duration,
+          useNativeDriver: true,
+        }),
+        Animated.timing(animated, {
+          toValue: 300,
+          duration: duration,
+          useNativeDriver: true,
+        }),
+      ]),
+    ).start();
+  }, []);
+
   const styles = StyleSheet.create({
     homeScreen: {
       flex: 1,
       alignItems: 'center',
+      justifyContent: 'space-evenly',
     },
-    header: {
-      flex: 2,
-      justifyContent: 'center',
-      fontWeight: 'bold',
-      fontSize: 30,
-    },
-    body: {
-      flex: 5,
-      justifyContent: 'center',
-    },
-    title: {
-      fontWeight: 'bold',
-      fontSize: 40,
-      fontFamily: 'avenir',
-    },
-    button: {
-      borderWidth: 1,
-      borderColor: 'black',
-      borderRadius: 10,
-    },
-    buttonText: {
-      fontFamily: 'avenir',
-      fontSize: 20,
-      padding: 10,
-    },
+    background: {},
   });
 
   return (
-    <View style={styles.homeScreen}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Country Quiz</Text>
+    <Animated.View style={styles.homeScreen}>
+      <Animated.View style={[{transform: [{translateX: animated}]}]}>
+        <Animated.Image source={require('../assets/world_map_bg.png')} />
+      </Animated.View>
+      <View>
+        <Text style={fonts.title}>Country Quiz</Text>
       </View>
-      <View style={styles.body}>
+      <View>
         <TouchableOpacity
-          style={styles.button}
+          style={fonts.buttonBorder}
           onPress={() => navigation.navigate('Play')}>
-          <Text style={styles.buttonText}>New Game</Text>
+          <Text style={fonts.buttonText}>New Game</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </Animated.View>
   );
 }
 
