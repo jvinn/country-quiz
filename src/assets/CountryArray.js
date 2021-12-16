@@ -1,4 +1,4 @@
-export const countries = [
+export const allCountries = [
   {
     name: 'Ascension Island',
     code: 'AC',

@@ -20,8 +20,11 @@ export default StyleSheet.create({
   },
   heading: {
     fontFamily: 'avenir',
-    fontSize: 20,
+    fontSize: 26,
     padding: 10,
     fontWeight: 'bold',
+  },
+  flag: {
+    fontSize: 300,
   },
 });
