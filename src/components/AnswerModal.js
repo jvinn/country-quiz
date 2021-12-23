@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import fonts from '../styles/Fonts';
 
-function AnswerModal({isAnswered, isCorrect, country}) {
+function AnswerModal({isAnswered, isCorrect, country, onContinue}) {
   const styles = StyleSheet.create({
     body: {
       flex: 1,
@@ -27,7 +27,9 @@ function AnswerModal({isAnswered, isCorrect, country}) {
           <Text style={fonts.title}>{result}</Text>
           <Text style={fonts.flag}>{country.emoji}</Text>
           <Text style={fonts.heading}>{country.name}</Text>
-          <TouchableOpacity style={fonts.buttonBorder}>
+          <TouchableOpacity
+            style={fonts.buttonBorder}
+            onPress={() => onContinue()}>
             <Text style={fonts.buttonText}>Continue</Text>
           </TouchableOpacity>
         </View>

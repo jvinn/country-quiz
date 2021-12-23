@@ -9,6 +9,7 @@ export default StyleSheet.create({
   buttonText: {
     fontFamily: 'avenir',
     fontSize: 20,
+    alignSelf: 'center',
   },
   buttonBorder: {
     padding: 10,

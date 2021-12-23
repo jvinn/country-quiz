@@ -20,7 +20,6 @@ function PlayScreen({navigation}) {
   const remainingCountries = allCountries.slice(); // Creates a new array
   const correctCountries = [];
   const incorrectCountries = [];
-  const numCountries = allCountries.length;
   const [isAnswered, setIsAnswered] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
 
@@ -32,13 +31,6 @@ function PlayScreen({navigation}) {
       });
     }
   });
-
-  useEffect(() => {
-    return navigation.addListener('beforeRemove', () => {
-      setScore(0);
-      setSkipped(0);
-    });
-  }, [navigation]);
 
   function newCountry() {
     setText('');
@@ -69,6 +61,19 @@ function PlayScreen({navigation}) {
       fontFamily: 'avenir',
       fontSize: 14,
     },
+    textInput: {
+      fontFamily: 'avenir',
+      fontSize: 20,
+      margin: 10,
+    },
+    textInputBorder: {
+      borderStyle: 'solid',
+      borderColor: 'black',
+      borderWidth: 1,
+      borderRadius: 10,
+      marginBottom: 30,
+      width: '60%',
+    },
   });
 
   return (
@@ -77,6 +82,10 @@ function PlayScreen({navigation}) {
         isAnswered={isAnswered}
         isCorrect={isCorrect}
         country={country}
+        onContinue={() => {
+          setIsAnswered(false);
+          newCountry();
+        }}
       />
       {261 - remainingCountries.length > 0 ? (
         <Text style={fonts.title}>
@@ -87,14 +96,13 @@ function PlayScreen({navigation}) {
       )}
       <Text style={fonts.heading}>{261 - remainingCountries.length} / 261</Text>
       <Text style={fonts.flag}>{country.emoji}</Text>
-      <View style={fonts.buttonBorder}>
+      <View style={styles.textInputBorder}>
         <TextInput
-          style={fonts.buttonText}
-          onChangeText={text => {
-            setText(text);
-          }}
+          style={styles.textInput}
+          onChangeText={text => setText(text)}
           onSubmitEditing={() => checkAnswer()}
           value={text}
+          placeholder={'Enter country name'}
         />
       </View>
       <TouchableOpacity
