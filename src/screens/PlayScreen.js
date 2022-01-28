@@ -9,6 +9,7 @@ import {
 import {allCountries} from '../assets/CountryArray';
 import fonts from '../styles/Fonts';
 import AnswerModal from '../components/AnswerModal';
+import HeartEmojis from '../components/HeartEmojis';
 
 function PlayScreen({navigation}) {
   const [country, setCountry] = useState(
@@ -22,15 +23,24 @@ function PlayScreen({navigation}) {
   const incorrectCountries = [];
   const [isAnswered, setIsAnswered] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
+  const [livesRemaining, setLivesRemaining] = useState(5);
+
+  console.log(country.name);
 
   useEffect(() => {
-    if (remainingCountries.length === 0) {
-      console.log(((score / (261 - allCountries.length)) * 100).toFixed(0));
+    if (livesRemaining === 0) {
+      console.log(((score / (259 - allCountries.length)) * 100).toFixed(0));
       navigation.navigate('Results', {
-        score: ((score / (261 - allCountries.length)) * 100).toFixed(0),
+        score: ((score / (259 - allCountries.length)) * 100).toFixed(0),
       });
     }
   });
+
+  function skipCountry() {
+    setSkipped(skipped + 1);
+    setLivesRemaining(livesRemaining - 1);
+    newCountry();
+  }
 
   function newCountry() {
     setText('');
@@ -84,17 +94,15 @@ function PlayScreen({navigation}) {
         country={country}
         onContinue={() => {
           setIsAnswered(false);
-          newCountry();
+          if (isCorrect) {
+            newCountry();
+          } else {
+            skipCountry();
+          }
         }}
       />
-      {261 - remainingCountries.length > 0 ? (
-        <Text style={fonts.title}>
-          {((score / (261 - remainingCountries.length)) * 100).toFixed(0)}%
-        </Text>
-      ) : (
-        <Text style={fonts.title}>0%</Text>
-      )}
-      <Text style={fonts.heading}>{261 - remainingCountries.length} / 261</Text>
+      <HeartEmojis livesRemaining={livesRemaining} />
+      <Text style={fonts.heading}>{259 - remainingCountries.length} / 259</Text>
       <Text style={fonts.flag}>{country.emoji}</Text>
       <View style={styles.textInputBorder}>
         <TextInput
@@ -107,11 +115,10 @@ function PlayScreen({navigation}) {
       </View>
       <TouchableOpacity
         onPress={() => {
-          setSkipped(skipped + 1);
+          skipCountry();
         }}>
         <Text style={fonts.buttonBorder}>Skip</Text>
       </TouchableOpacity>
-      {console.log(country.name)}
     </View>
   );
 }
