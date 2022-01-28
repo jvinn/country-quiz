@@ -400,14 +400,6 @@ export const allCountries = [
       'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CO.svg',
   },
   {
-    name: 'Clipperton Island',
-    code: 'CP',
-    emoji: '🇨🇵',
-    unicode: 'U+1F1E8 U+1F1F5',
-    image:
-      'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CP.svg',
-  },
-  {
     name: 'Costa Rica',
     code: 'CR',
     emoji: '🇨🇷',
@@ -1902,14 +1894,6 @@ export const allCountries = [
     unicode: 'U+1F1FA U+1F1EC',
     image:
       'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/UG.svg',
-  },
-  {
-    name: 'U.S. Outlying Islands',
-    code: 'UM',
-    emoji: '🇺🇲',
-    unicode: 'U+1F1FA U+1F1F2',
-    image:
-      'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/UM.svg',
   },
   {
     name: 'United Nations',
