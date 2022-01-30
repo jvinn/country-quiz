@@ -14,7 +14,7 @@ function HeartEmojis({livesRemaining}) {
   }
   console.log(heartsString);
 
-  return <Text>{heartsString}</Text>;
+  return <Text style={{fontSize: 30}}>{heartsString}</Text>;
 }
 
 export default HeartEmojis;

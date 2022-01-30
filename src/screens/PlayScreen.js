@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
+  Modal,
   StyleSheet,
   Text,
   TextInput,
@@ -12,13 +13,13 @@ import AnswerModal from '../components/AnswerModal';
 import HeartEmojis from '../components/HeartEmojis';
 
 function PlayScreen({navigation}) {
+  const remainingCountries = allCountries.slice(); // Creates a new array
   const [country, setCountry] = useState(
-    allCountries[Math.floor(Math.random() * 261)],
+    remainingCountries[Math.floor(Math.random() * remainingCountries.length)],
   );
   const [score, setScore] = useState(0);
   const [skipped, setSkipped] = useState(0);
   const [text, setText] = useState(null);
-  const remainingCountries = allCountries.slice(); // Creates a new array
   const correctCountries = [];
   const incorrectCountries = [];
   const [isAnswered, setIsAnswered] = useState(false);
@@ -26,12 +27,15 @@ function PlayScreen({navigation}) {
   const [livesRemaining, setLivesRemaining] = useState(5);
 
   console.log(country.name);
+  console.log('score: ' + score);
+  console.log('allCountries: ' + allCountries.length);
+  console.log('remainingCountries: ' + remainingCountries.length);
 
   useEffect(() => {
     if (livesRemaining === 0) {
-      console.log(((score / (259 - allCountries.length)) * 100).toFixed(0));
+      console.log('done');
       navigation.navigate('Results', {
-        score: ((score / (259 - allCountries.length)) * 100).toFixed(0),
+        score: ((score / allCountries.length) * 100).toFixed(0),
       });
     }
   });
@@ -44,9 +48,9 @@ function PlayScreen({navigation}) {
 
   function newCountry() {
     setText('');
-    allCountries.splice(allCountries.indexOf(country), 1);
-    let randIndex = Math.floor(Math.random() * allCountries.length);
-    setCountry(allCountries[randIndex]);
+    remainingCountries.splice(remainingCountries.indexOf(country), 1);
+    let randIndex = Math.floor(Math.random() * remainingCountries.length);
+    setCountry(remainingCountries[randIndex]);
   }
 
   function checkAnswer() {
@@ -62,19 +66,9 @@ function PlayScreen({navigation}) {
   }
 
   const styles = StyleSheet.create({
-    playScreen: {
+    body: {
       flex: 1,
       alignItems: 'center',
-      justifyContent: 'center',
-    },
-    progress: {
-      fontFamily: 'avenir',
-      fontSize: 14,
-    },
-    textInput: {
-      fontFamily: 'avenir',
-      fontSize: 20,
-      margin: 10,
     },
     textInputBorder: {
       borderStyle: 'solid',
@@ -84,41 +78,64 @@ function PlayScreen({navigation}) {
       marginBottom: 30,
       width: '60%',
     },
+    textInput: {
+      fontFamily: 'avenir',
+      fontSize: 20,
+      margin: 10,
+    },
+    header: {
+      height: '25%',
+      display: 'flex',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+    },
+    hearts: {},
+    score: {},
+    flag: {
+      height: '50%',
+      justifyContent: 'center',
+    },
   });
 
   return (
-    <View style={styles.playScreen}>
-      <AnswerModal
-        isAnswered={isAnswered}
-        isCorrect={isCorrect}
-        country={country}
-        onContinue={() => {
-          setIsAnswered(false);
-          if (isCorrect) {
-            newCountry();
-          } else {
-            skipCountry();
-          }
-        }}
-      />
-      <HeartEmojis livesRemaining={livesRemaining} />
-      <Text style={fonts.heading}>{259 - remainingCountries.length} / 259</Text>
-      <Text style={fonts.flag}>{country.emoji}</Text>
-      <View style={styles.textInputBorder}>
-        <TextInput
-          style={styles.textInput}
-          onChangeText={text => setText(text)}
-          onSubmitEditing={() => checkAnswer()}
-          value={text}
-          placeholder={'Enter country name'}
-        />
-      </View>
-      <TouchableOpacity
-        onPress={() => {
-          skipCountry();
-        }}>
-        <Text style={fonts.buttonBorder}>Skip</Text>
-      </TouchableOpacity>
+    <View>
+      <Modal visible={livesRemaining > 0}>
+        <View style={styles.body}>
+          <AnswerModal
+            isAnswered={isAnswered}
+            isCorrect={isCorrect}
+            country={country}
+            onContinue={() => {
+              setIsAnswered(false);
+              if (isCorrect) {
+                newCountry();
+              } else {
+                skipCountry();
+              }
+            }}
+          />
+          <View style={styles.header}>
+            <View style={styles.hearts}>
+              <HeartEmojis livesRemaining={livesRemaining} />
+            </View>
+            <View style={styles.score}>
+              <Text style={fonts.heading}>Score: {score}</Text>
+            </View>
+          </View>
+          <View style={styles.flag}>
+            <Text style={fonts.flag}>{country.emoji}</Text>
+          </View>
+          <View style={styles.textInputBorder}>
+            <TextInput
+              style={styles.textInput}
+              onChangeText={text => setText(text)}
+              onSubmitEditing={() => checkAnswer()}
+              value={text}
+              placeholder={'Enter country name'}
+            />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }

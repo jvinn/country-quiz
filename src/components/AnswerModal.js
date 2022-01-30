@@ -14,6 +14,13 @@ function AnswerModal({isAnswered, isCorrect, country, onContinue}) {
     body: {
       flex: 1,
       alignItems: 'center',
+    },
+    title: {
+      height: '25%',
+      justifyContent: 'flex-end',
+    },
+    flag: {
+      height: '50%',
       justifyContent: 'center',
     },
   });
@@ -24,13 +31,16 @@ function AnswerModal({isAnswered, isCorrect, country, onContinue}) {
     <View>
       <Modal visible={isAnswered}>
         <View style={styles.body}>
-          <Text style={fonts.title}>{result}</Text>
-          <Text style={fonts.flag}>{country.emoji}</Text>
-          <Text style={fonts.heading}>{country.name}</Text>
-          <TouchableOpacity
-            style={fonts.buttonBorder}
-            onPress={() => onContinue()}>
-            <Text style={fonts.buttonText}>Continue</Text>
+          <TouchableOpacity onPress={() => onContinue()} style={styles.body}>
+            <View style={styles.title}>
+              <Text style={fonts.title}>{result}</Text>
+            </View>
+            <View style={styles.flag}>
+              <Text style={fonts.flag}>{country.emoji}</Text>
+            </View>
+            <View>
+              <Text style={fonts.heading}>{country.name}</Text>
+            </View>
           </TouchableOpacity>
         </View>
       </Modal>
