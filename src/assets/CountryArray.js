@@ -1640,14 +1640,6 @@ export const allCountries = [
       'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SI.svg',
   },
   {
-    name: 'Svalbard & Jan Mayen',
-    code: 'SJ',
-    emoji: '🇸🇯',
-    unicode: 'U+1F1F8 U+1F1EF',
-    image:
-      'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SJ.svg',
-  },
-  {
     name: 'Slovakia',
     code: 'SK',
     emoji: '🇸🇰',
