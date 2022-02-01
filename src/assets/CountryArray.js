@@ -784,20 +784,12 @@ export const allCountries = [
       'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/GY.svg',
   },
   {
-    name: 'Hong Kong SAR China',
+    name: 'Hong Kong',
     code: 'HK',
     emoji: '🇭🇰',
     unicode: 'U+1F1ED U+1F1F0',
     image:
       'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/HK.svg',
-  },
-  {
-    name: 'Heard & McDonald Islands',
-    code: 'HM',
-    emoji: '🇭🇲',
-    unicode: 'U+1F1ED U+1F1F2',
-    image:
-      'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/HM.svg',
   },
   {
     name: 'Honduras',
@@ -1160,14 +1152,6 @@ export const allCountries = [
       'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/ME.svg',
   },
   {
-    name: 'St. Martin',
-    code: 'MF',
-    emoji: '🇲🇫',
-    unicode: 'U+1F1F2 U+1F1EB',
-    image:
-      'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MF.svg',
-  },
-  {
     name: 'Madagascar',
     code: 'MG',
     emoji: '🇲🇬',
@@ -1216,7 +1200,7 @@ export const allCountries = [
       'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MN.svg',
   },
   {
-    name: 'Macao SAR China',
+    name: 'Macao',
     code: 'MO',
     emoji: '🇲🇴',
     unicode: 'U+1F1F2 U+1F1F4',

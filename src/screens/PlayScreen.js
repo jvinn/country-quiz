@@ -11,6 +11,7 @@ import {allCountries} from '../assets/CountryArray';
 import fonts from '../styles/Fonts';
 import AnswerModal from '../components/AnswerModal';
 import HeartEmojis from '../components/HeartEmojis';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function PlayScreen({navigation}) {
   const remainingCountries = allCountries.slice(); // Creates a new array
@@ -25,11 +26,34 @@ function PlayScreen({navigation}) {
   const [isAnswered, setIsAnswered] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [livesRemaining, setLivesRemaining] = useState(5);
+  const [highscore, setHighscore] = useState();
+
+  const storeData = async value => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('@storage_Key', jsonValue);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('@storage_Key');
+      setHighscore(jsonValue);
+      console.log(jsonValue);
+      return jsonValue;
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   console.log(country.name);
   console.log('score: ' + score);
   console.log('allCountries: ' + allCountries.length);
   console.log('remainingCountries: ' + remainingCountries.length);
+  console.log('storeData: ' + storeData(10));
+  console.log('getData:' + getData());
 
   useEffect(() => {
     if (livesRemaining === 0) {
@@ -95,6 +119,9 @@ function PlayScreen({navigation}) {
       height: '50%',
       justifyContent: 'center',
     },
+    highscore: {
+      display: 'flex',
+    },
   });
 
   return (
@@ -115,6 +142,9 @@ function PlayScreen({navigation}) {
             }}
           />
           <View style={styles.header}>
+            <View style={styles.highscore}>
+              <Text>Best: {highscore}</Text>
+            </View>
             <View style={styles.hearts}>
               <HeartEmojis livesRemaining={livesRemaining} />
             </View>
