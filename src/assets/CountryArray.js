@@ -512,14 +512,6 @@ export const allCountries = [
       'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/DZ.svg',
   },
   {
-    name: 'Ceuta & Melilla',
-    code: 'EA',
-    emoji: '🇪🇦',
-    unicode: 'U+1F1EA U+1F1E6',
-    image:
-      'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/EA.svg',
-  },
-  {
     name: 'Ecuador',
     code: 'EC',
     emoji: '🇪🇨',
