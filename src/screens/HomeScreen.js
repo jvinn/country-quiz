@@ -29,22 +29,35 @@ function HomeScreen({navigation}) {
 
   const styles = StyleSheet.create({
     homeScreen: {
-      flex: 1,
+      display: 'flex',
       alignItems: 'center',
-      justifyContent: 'space-evenly',
     },
-    background: {},
+    header: {
+      height: Dimensions.get('window').height * 0.25,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    animation: {
+      height: Dimensions.get('window').height * 0.5,
+      transform: [{translateX: animated}],
+      justifyContent: 'center',
+    },
+    footer: {
+      height: Dimensions.get('window').height * 0.25,
+      justifyContent: 'center',
+    },
   });
 
   return (
     <Animated.View style={styles.homeScreen}>
-      <Animated.View style={[{transform: [{translateX: animated}]}]}>
-        <Image source={require('../assets/world-map-tile.png')} />
-      </Animated.View>
-      <View>
+      <View style={styles.header}>
         <Text style={fonts.title}>Country Quiz</Text>
       </View>
-      <View>
+      <Animated.View style={styles.animation}>
+        <Image source={require('../assets/world-map-tile.png')} />
+      </Animated.View>
+      <View style={styles.footer}>
         <TouchableOpacity
           style={fonts.buttonBorder}
           onPress={() => navigation.navigate('Play')}>

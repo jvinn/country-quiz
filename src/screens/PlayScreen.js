@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
+  Dimensions,
   Modal,
   StyleSheet,
   Text,
@@ -26,7 +27,7 @@ function PlayScreen({navigation}) {
   const [isAnswered, setIsAnswered] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [livesRemaining, setLivesRemaining] = useState(5);
-  const [highscore, setHighscore] = useState();
+  const [highScore, setHighScore] = useState();
 
   const storeData = async value => {
     try {
@@ -40,8 +41,7 @@ function PlayScreen({navigation}) {
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('@storage_Key');
-      setHighscore(jsonValue);
-      console.log(jsonValue);
+      console.log('j: ' + jsonValue);
       return jsonValue;
     } catch (e) {
       console.log(e);
@@ -52,14 +52,17 @@ function PlayScreen({navigation}) {
   console.log('score: ' + score);
   console.log('allCountries: ' + allCountries.length);
   console.log('remainingCountries: ' + remainingCountries.length);
-  console.log('storeData: ' + storeData(10));
-  console.log('getData:' + getData());
 
   useEffect(() => {
+    getData().then(val => setHighScore(val));
+
     if (livesRemaining === 0) {
+      if (score > highScore) {
+        storeData(score).then(setHighScore(score));
+      }
       console.log('done');
       navigation.navigate('Results', {
-        score: ((score / allCountries.length) * 100).toFixed(0),
+        score: score,
       });
     }
   });
@@ -108,19 +111,24 @@ function PlayScreen({navigation}) {
       margin: 10,
     },
     header: {
-      height: '25%',
+      height: Dimensions.get('window').height * 0.25,
       display: 'flex',
       justifyContent: 'flex-end',
       alignItems: 'center',
     },
-    hearts: {},
-    score: {},
     flag: {
-      height: '50%',
+      height: Dimensions.get('window').height * 0.5,
       justifyContent: 'center',
     },
-    highscore: {
+    highScore: {
       display: 'flex',
+    },
+    footer: {
+      height: Dimensions.get('window').height * 0.25,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
     },
   });
 
@@ -142,27 +150,29 @@ function PlayScreen({navigation}) {
             }}
           />
           <View style={styles.header}>
-            <View style={styles.highscore}>
-              <Text>Best: {highscore}</Text>
+            <View style={styles.highScore}>
+              <Text style={fonts.buttonText}>Best: {highScore}</Text>
             </View>
-            <View style={styles.hearts}>
+            <View>
               <HeartEmojis livesRemaining={livesRemaining} />
             </View>
-            <View style={styles.score}>
+            <View>
               <Text style={fonts.heading}>Score: {score}</Text>
             </View>
           </View>
           <View style={styles.flag}>
             <Text style={fonts.flag}>{country.emoji}</Text>
           </View>
-          <View style={styles.textInputBorder}>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={text => setText(text)}
-              onSubmitEditing={() => checkAnswer()}
-              value={text}
-              placeholder={'Enter country name'}
-            />
+          <View style={styles.footer}>
+            <View style={styles.textInputBorder}>
+              <TextInput
+                style={styles.textInput}
+                onChangeText={text => setText(text)}
+                onSubmitEditing={() => checkAnswer()}
+                value={text}
+                placeholder={'Enter country name'}
+              />
+            </View>
           </View>
         </View>
       </Modal>

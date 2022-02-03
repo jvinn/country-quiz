@@ -1,21 +1,27 @@
 import React from 'react';
 import fonts from '../styles/Fonts';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 
-function ResultsScreen({route}) {
+function ResultsScreen({route, navigation}) {
   const {score} = route.params;
 
   const styles = StyleSheet.create({
-    score: {
-      flex: 1,
+    touchable: {
+      height: '100%',
+      width: '100%',
+      display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
     },
   });
 
   return (
-    <View style={styles.score}>
-      <Text style={fonts.title}>{score}%</Text>
+    <View>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Home')}
+        style={styles.touchable}>
+        <Text style={fonts.title}>Score: {score}</Text>
+      </TouchableOpacity>
     </View>
   );
 }

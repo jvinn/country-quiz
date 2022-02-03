@@ -2,9 +2,9 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   title: {
-    fontWeight: 'bold',
     fontSize: 40,
     fontFamily: 'avenir',
+    height: '25%',
   },
   buttonText: {
     fontFamily: 'avenir',
@@ -14,7 +14,7 @@ export default StyleSheet.create({
   buttonBorder: {
     padding: 10,
     borderWidth: 1,
-    marginBottom: 20,
+    Bottom: 20,
     borderColor: 'black',
     borderRadius: 10,
     width: '60%',
@@ -22,9 +22,8 @@ export default StyleSheet.create({
   heading: {
     fontFamily: 'avenir',
     fontSize: 30,
-    padding: 10,
   },
   flag: {
-    fontSize: 250,
+    fontSize: 300,
   },
 });

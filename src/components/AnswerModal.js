@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Button,
+  Dimensions,
 } from 'react-native';
 import fonts from '../styles/Fonts';
 
@@ -15,13 +16,19 @@ function AnswerModal({isAnswered, isCorrect, country, onContinue}) {
       flex: 1,
       alignItems: 'center',
     },
-    title: {
-      height: '25%',
+    header: {
+      height: Dimensions.get('window').height * 0.25,
       justifyContent: 'flex-end',
     },
     flag: {
-      height: '50%',
+      height: Dimensions.get('window').height * 0.5,
       justifyContent: 'center',
+    },
+    footer: {
+      height: Dimensions.get('window').height * 0.25,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
   });
 
@@ -32,13 +39,13 @@ function AnswerModal({isAnswered, isCorrect, country, onContinue}) {
       <Modal visible={isAnswered}>
         <View style={styles.body}>
           <TouchableOpacity onPress={() => onContinue()} style={styles.body}>
-            <View style={styles.title}>
+            <View style={styles.header}>
               <Text style={fonts.title}>{result}</Text>
             </View>
             <View style={styles.flag}>
               <Text style={fonts.flag}>{country.emoji}</Text>
             </View>
-            <View>
+            <View style={styles.footer}>
               <Text style={fonts.heading}>{country.name}</Text>
             </View>
           </TouchableOpacity>
